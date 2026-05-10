@@ -1,6 +1,6 @@
 {
-  "sha": "16a1f1a3ef905fbe3b8ec5aa4388db11defba2fd",
-  "url": "https://api.github.com/repos/Dennis114514/GenshinLore/git/trees/16a1f1a3ef905fbe3b8ec5aa4388db11defba2fd",
+  "sha": "071a1f929371f4a3b87f89f39ff88c13cc90f6c0",
+  "url": "https://api.github.com/repos/Dennis114514/GenshinLore/git/trees/071a1f929371f4a3b87f89f39ff88c13cc90f6c0",
   "tree": [
     {
       "path": ".github",
@@ -60,9 +60,9 @@
       "path": "README.md",
       "mode": "100644",
       "type": "blob",
-      "sha": "e0727d00afbac99cd19e0fb42eee70326e88bc32",
-      "size": 4167,
-      "url": "https://api.github.com/repos/Dennis114514/GenshinLore/git/blobs/e0727d00afbac99cd19e0fb42eee70326e88bc32"
+      "sha": "049bcc4e1189556f09e86d5b54445bf6cdd90740",
+      "size": 6565,
+      "url": "https://api.github.com/repos/Dennis114514/GenshinLore/git/blobs/049bcc4e1189556f09e86d5b54445bf6cdd90740"
     },
     {
       "path": "Teyvathis.html",
@@ -1714,6 +1714,22 @@
       "sha": "d27768491b0ec5582a350e5577f57ba6a0ec7cf1",
       "size": 35543,
       "url": "https://api.github.com/repos/Dennis114514/GenshinLore/git/blobs/d27768491b0ec5582a350e5577f57ba6a0ec7cf1"
+    },
+    {
+      "path": "tree.json",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "d483d7c938789ab121b574611135c36840c4910b",
+      "size": 65559,
+      "url": "https://api.github.com/repos/Dennis114514/GenshinLore/git/blobs/d483d7c938789ab121b574611135c36840c4910b"
+    },
+    {
+      "path": "tree.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "adf439d46777fe5f35c04062c5e969db9b049c9a",
+      "size": 2398,
+      "url": "https://api.github.com/repos/Dennis114514/GenshinLore/git/blobs/adf439d46777fe5f35c04062c5e969db9b049c9a"
     },
     {
       "path": "useragreement.js",
