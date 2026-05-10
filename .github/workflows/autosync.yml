@@ -1,0 +1,30 @@
+name: Upstream Sync
+
+permissions:
+  contents: write
+
+on:
+  schedule:
+    - cron: "0 0 * * *"  # 每天 UTC 时间 0点 执行 (北京时间早上8点)
+  workflow_dispatch:     # 允许手动在 Actions 页面触发
+
+jobs:
+  sync_with_upstream:
+    name: Sync with Upstream
+    runs-on: ubuntu-latest
+    
+    # 仅当仓库确实是 Fork 时才运行
+    if: ${{ github.event.repository.fork }}
+    
+    steps:
+      - name: Checkout target repo
+        uses: actions/checkout@v3
+        
+      - name: Sync Upstream
+        uses: aormsby/Fork-Sync-With-Upstream-action@v3.4
+        with:
+          target_repo_token: ${{ secrets.GITHUB_TOKEN }}
+          upstream_sync_repo: 'Dennis114514/GenshinLore'   # ⚠️ 修改这里：例如 HackJava/HackJava
+          upstream_sync_branch: main               # 修改这里：原仓库的主分支名
+          target_sync_branch: main                 # 修改这里：你仓库的主分支名
+          test_mode: false
