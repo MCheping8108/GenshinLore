@@ -78,10 +78,13 @@
         </nav>
     </header>
     <main class="main-content">
-        <aside class="toc-sidebar">
-            <h3 class="toc-title">目录导航 <button class="toc-toggle-btn" id="toc-toggle">↑</button></h3>
-            <ul class="toc-list" id="toc-list">
-            </ul>
+        <aside class="toc-wrapper">
+            <aside class="toc-sidebar">
+                <h3 class="toc-title">目录导航 <button class="toc-collapse-btn" id="toc-collapse">→</button></h3>
+                <ul class="toc-list" id="toc-list">
+                </ul>
+            </aside>
+            <button class="toc-expand-btn" id="toc-expand">☰</button>
         </aside>
         <section class="page-content">
             <h1 class="page-title">关于手册</h1>
@@ -812,32 +815,9 @@
                 a.style.textDecoration = 'none';
                 a.innerHTML = item.text;
                 
-                a.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const target = document.getElementById(item.id);
-                    if (target) {
-                        const offset = 100;
-                        const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - offset;
-                        window.scrollTo({
-                            top: targetPosition,
-                            behavior: 'smooth'
-                        });
-                        
-                        updateTocHighlight(item.id);
-                    }
-                });
-                
                 li.appendChild(a);
                 tocList.appendChild(li);
             });
-            
-            // 折叠/展开功能
-            if (tocToggle) {
-                tocToggle.addEventListener('click', function() {
-                    tocList.classList.toggle('collapsed');
-                    this.classList.toggle('rotated');
-                });
-            }
             
             // 初始化高亮
             updateTocHighlight();
@@ -887,6 +867,11 @@
                 });
             }
         });
+        
+        // 初始化移动端目录导航（确保目录DOM创建完成后调用）
+        if (typeof initMobileToc === 'function') {
+            initMobileToc();
+        }
     </script>
 </body>
 </html>

@@ -108,15 +108,110 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // TOC toggle functionality
-    const tocToggleBtn = document.getElementById('toc-toggle');
-    if (tocToggleBtn) {
-        tocToggleBtn.addEventListener('click', function() {
-            const tocList = document.getElementById('toc-list');
-            tocList.classList.toggle('collapsed');
-            this.classList.toggle('rotated');
+    const tocCollapseBtn = document.getElementById('toc-collapse');
+    const tocExpandBtn = document.getElementById('toc-expand');
+    const tocSidebar = document.querySelector('.toc-sidebar');
+    
+    function collapseToc() {
+        tocSidebar.classList.add('collapsed');
+        tocCollapseBtn.style.display = 'none';
+        tocExpandBtn.classList.add('visible');
+    }
+    
+    function expandToc() {
+        tocSidebar.classList.remove('collapsed');
+        tocCollapseBtn.style.display = 'flex';
+        tocExpandBtn.classList.remove('visible');
+    }
+    
+    if (tocCollapseBtn && tocSidebar) {
+        tocCollapseBtn.addEventListener('click', collapseToc);
+    }
+    
+    if (tocExpandBtn && tocSidebar) {
+        tocExpandBtn.addEventListener('click', expandToc);
+    }
+    
+    // 初始化移动端目录导航
+    initMobileToc();
+});
+
+// 初始化移动端目录导航
+function initMobileToc() {
+    const tocSidebar = document.querySelector('.toc-sidebar');
+    if (!tocSidebar) return;
+    
+    // 创建遮罩层
+    const tocOverlay = document.createElement('div');
+    tocOverlay.className = 'mobile-toc-overlay';
+    
+    // 创建悬浮球按钮
+    const mobileTocBtn = document.createElement('button');
+    mobileTocBtn.className = 'mobile-toc-btn';
+    mobileTocBtn.setAttribute('aria-label', '打开目录');
+    
+    tocSidebar.parentNode.insertBefore(tocOverlay, tocSidebar.nextSibling);
+    document.body.appendChild(mobileTocBtn);
+    
+    function isMobile() {
+        return window.innerWidth <= 1012;
+    }
+    
+    function updateMobileTocVisibility() {
+        if (isMobile()) {
+            mobileTocBtn.classList.remove('hidden');
+            tocSidebar.classList.remove('collapsed');
+        } else {
+            mobileTocBtn.classList.add('hidden');
+            closeMobileToc();
+        }
+    }
+    
+    function openMobileToc() {
+        tocSidebar.classList.add('mobile-active');
+        tocOverlay.classList.add('active');
+        mobileTocBtn.classList.add('hidden');
+        document.body.style.overflow = 'hidden';
+    }
+    
+    function closeMobileToc() {
+        tocSidebar.classList.remove('mobile-active');
+        tocOverlay.classList.remove('active');
+        setTimeout(() => {
+            mobileTocBtn.classList.remove('hidden');
+        }, 350);
+        document.body.style.overflow = '';
+    }
+    
+    mobileTocBtn.addEventListener('click', openMobileToc);
+    tocOverlay.addEventListener('click', closeMobileToc);
+    
+    // 点击收起按钮关闭侧边栏
+    const collapseBtn = document.querySelector('.toc-collapse-btn');
+    if (collapseBtn) {
+        collapseBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            closeMobileToc();
         });
     }
-});
+    
+    // 点击目录项后关闭侧边栏
+    tocSidebar.querySelectorAll('.toc-link').forEach(link => {
+        link.addEventListener('click', function() {
+            closeMobileToc();
+        });
+    });
+    
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && tocSidebar.classList.contains('mobile-active')) {
+            closeMobileToc();
+        }
+    });
+    
+    window.addEventListener('resize', updateMobileTocVisibility);
+    
+    updateMobileTocVisibility();
+}
 
 // 初始化移动端汉堡菜单
 function initMobileMenu() {
